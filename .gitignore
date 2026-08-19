@@ -1,0 +1,20 @@
+# 运行时数据(不要提交)
+data/
+napcat/
+
+# 环境变量与密钥
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 系统与编辑器
+.DS_Store
+*.swp
+.idea/
+.vscode/

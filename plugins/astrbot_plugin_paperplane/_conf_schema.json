@@ -1,0 +1,52 @@
+{
+  "reply_text": {
+    "type": "string",
+    "default": "收到",
+    "description": "收到转发消息时回复的文字"
+  },
+  "oc_enabled": {
+    "type": "bool",
+    "default": true,
+    "description": "是否启用 opencode 集成"
+  },
+  "oc_bin": {
+    "type": "string",
+    "default": "opencode",
+    "description": "opencode 可执行文件路径(容器内通常为 opencode,已由 Dockerfile 安装)"
+  },
+  "oc_dir": {
+    "type": "string",
+    "default": "/workspace",
+    "description": "opencode 工作目录(容器内为 /workspace,由 Dockerfile 创建)"
+  },
+  "oc_model": {
+    "type": "string",
+    "default": "",
+    "description": "模型名(留空使用 opencode 默认模型,格式如 provider/model)"
+  },
+  "oc_session": {
+    "type": "string",
+    "default": "",
+    "description": "opencode 会话 ID(留空每次新会话;填写后可多轮延续同一会话)"
+  },
+  "oc_attach_url": {
+    "type": "string",
+    "default": "",
+    "description": "opencode server 地址,如 http://127.0.0.1:4096(留空则直接以 CLI 方式运行)"
+  },
+  "oc_timeout": {
+    "type": "int",
+    "default": 180,
+    "description": "opencode 调用超时时间(秒)"
+  },
+  "oc_auto": {
+    "type": "bool",
+    "default": false,
+    "description": "自动批准 opencode 的权限请求(危险,请谨慎开启)"
+  },
+  "oc_on_forward": {
+    "type": "bool",
+    "default": false,
+    "description": "收到转发消息时是否同时交给 opencode 处理(true 时回复 opencode 结果,false 时只回复 reply_text)"
+  }
+}

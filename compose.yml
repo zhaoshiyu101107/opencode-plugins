@@ -1,0 +1,35 @@
+services:
+  # ---------- AstrBot 主服务(含 opencode) ----------
+  astrbot:
+    build:
+      context: .
+      dockerfile: Dockerfile.astrbot-opencode
+    container_name: astrbot
+    ports:
+      - "6185:6185" # WebUI 管理面板(默认账号密码 astrbot/astrbot)
+      - "6199:6199" # OneBot v11 / aiocqhttp 反向 WebSocket(QQ 接入用)
+    volumes:
+      - ./data:/AstrBot/data # 配置/插件/运行数据(插件放到 ./data/plugins/ 下)
+      - ./data/opencode-auth:/root/.local/share/opencode # 持久化 opencode 模型凭证
+    environment:
+      # opencode 模型 API Key(可选,也可在容器内 docker exec -it astrbot opencode auth login)
+      - OPENCODE_API_KEY=${OPENCODE_API_KEY:-}
+    restart: unless-stopped
+
+  # ---------- NapCat:QQ 个人号接入(OneBot v11 协议端) ----------
+  napcat:
+    image: mlikiowa/napcat-docker:latest
+    container_name: napcat
+    environment:
+      # 建议与宿主机 uid/gid 一致:export NAPCAT_UID=$(id -u) NAPCAT_GID=$(id -g)
+      - NAPCAT_UID=${NAPCAT_UID:-1000}
+      - NAPCAT_GID=${NAPCAT_GID:-1000}
+    ports:
+      - "6099:6099" # NapCat WebUI(扫码登录/配置)
+      - "3000:3000" # OneBot HTTP
+      - "3001:3001" # OneBot WebSocket
+    volumes:
+      - ./napcat:/app/.config # QQ 登录态与 NapCat 配置
+    depends_on:
+      - astrbot
+    restart: unless-stopped

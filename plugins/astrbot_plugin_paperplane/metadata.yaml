@@ -1,0 +1,10 @@
+name: astrbot_plugin_paperplane
+desc: 收到转发消息回复"收到",并支持通过 opencode 智能回复(支持飞书/QQ/Telegram 三平台)
+author: zhaoshiyu
+version: 1.0.0
+repo: https://github.com/zhaoshiyu/astrbot_plugin_paperplane
+astrbot_version: ">=4.16,<5"
+support_platforms:
+  - aiocqhttp
+  - lark
+  - telegram

@@ -1,0 +1,2 @@
+# 本插件仅依赖 AstrBot 自带 API 与 Python 标准库,无第三方依赖。
+# opencode 需在运行环境中安装(见项目 README 与 Dockerfile.astrbot-opencode)。
