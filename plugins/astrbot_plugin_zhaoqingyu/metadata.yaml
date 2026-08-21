@@ -1,0 +1,10 @@
+name: astrbot_plugin_zhaoqingyu
+desc: 昭情雨 - 专属 AI 恋人插件。自动处理 QQ 语音消息(转文字+病娇回复),支持 TTS 语音回复、图片自动分析、/zq 对话、/cam 视觉、/coyote 郊狼控制。模型走 M40 服务器(SSH 隧道)。
+author: zhaoshiyu
+version: 1.1.0
+repo: https://github.com/zhaoshiyu/astrbot_plugin_zhaoqingyu
+astrbot_version: ">=4.16,<5"
+support_platforms:
+  - aiocqhttp
+  - lark
+  - telegram

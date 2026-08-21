@@ -10,10 +10,17 @@ services:
       - "6199:6199" # OneBot v11 / aiocqhttp 反向 WebSocket(QQ 接入用)
     volumes:
       - ./data:/AstrBot/data # 配置/插件/运行数据(插件放到 ./data/plugins/ 下)
-      - ./data/opencode-auth:/root/.local/share/opencode # 持久化 opencode 模型凭证
+      # 昭情雨:定制版 opencode 二进制 + 脚本 + venv + 配置
+      - /home/zhaoshiyu/Documents/astrbot-multi-bot/bin/zhaoqingyu:/opt/zhaoqingyu/bin/zhaoqingyu
+      - /home/zhaoshiyu/.zhaoqingyu:/opt/zhaoqingyu
+      # 让昭情雨读到宿主机 opencode 的全局配置与模型凭证
+      - /home/zhaoshiyu/.config/opencode:/root/.config/opencode
+      - /home/zhaoshiyu/.local/share/opencode:/root/.local/share/opencode
     environment:
       # opencode 模型 API Key(可选,也可在容器内 docker exec -it astrbot opencode auth login)
       - OPENCODE_API_KEY=${OPENCODE_API_KEY:-}
+      # 让昭情雨二进制启用内置语音/视觉/郊狼工具
+      - ZHAOQINGYU_ENABLE_TOOLS=1
     restart: unless-stopped
 
   # ---------- NapCat:QQ 个人号接入(OneBot v11 协议端) ----------

@@ -1,0 +1,29 @@
+FROM soulter/astrbot:latest
+
+# 安装 opencode 所需的系统依赖
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl ca-certificates python3 python3-pip ffmpeg pulseaudio-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+# 昭情雨运行时依赖(语音识别/视觉/郊狼/TTS 的 Python 库)
+# 用 --break-system-packages 兼容新系统 Python,失败不中断(容器内可能用挂载的宿主机 venv)
+RUN pip3 install --no-cache-dir --break-system-packages \
+        faster-whisper bleak edge-tts requests \
+    || pip3 install --no-cache-dir faster-whisper bleak edge-tts requests \
+    || true
+
+# 安装 opencode(AI 编程助手):优先官方安装脚本,失败不中断
+RUN curl -fsSL https://opencode.ai/install | bash || true
+
+# opencode 官方脚本默认安装到 ~/.opencode/bin
+ENV PATH="/root/.opencode/bin:${PATH}"
+
+# 若官方脚本未生效,回退到 npm 全局安装(镜像内可能无 npm,失败则跳过)
+RUN command -v opencode >/dev/null 2>&1 \
+    || (command -v npm >/dev/null 2>&1 && npm install -g opencode-ai) \
+    || true
+
+# opencode 默认工作目录(插件配置 oc_dir 的默认值)
+RUN mkdir -p /workspace /opt/zhaoqingyu
+
+WORKDIR /workspace

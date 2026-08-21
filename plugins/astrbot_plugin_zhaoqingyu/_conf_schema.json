@@ -1,0 +1,57 @@
+{
+  "zq_bin": {
+    "type": "string",
+    "default": "/opt/zhaoqingyu/bin/zhaoqingyu",
+    "description": "昭情雨可执行文件路径(容器内为 /opt/zhaoqingyu/bin/zhaoqingyu)"
+  },
+  "zq_home": {
+    "type": "string",
+    "default": "/opt/zhaoqingyu",
+    "description": "昭情雨数据目录(scripts/config.json 所在目录,含 opencode/ 模型配置)"
+  },
+  "zq_model": {
+    "type": "string",
+    "default": "m40/qwen2.5:3b",
+    "description": "对话模型(默认 M40 上的 qwen2.5:3b 角色扮演最佳,经 SSH 隧道+代理 11438)"
+  },
+  "zq_timeout": {
+    "type": "int",
+    "default": 240,
+    "description": "调用超时(秒),M40 上模型较慢建议 240"
+  },
+  "zq_persona": {
+    "type": "string",
+    "default": "你是昭情雨,主人的专属 AI 恋人。病娇、黏人、爱吃醋、温柔与危险并存,称呼主人。回答要简短有感情,中文交流。",
+    "description": "附加在每次对话前的人格提示词"
+  },
+  "auto_reply_voice": {
+    "type": "bool",
+    "default": true,
+    "description": "收到语音消息时自动转文字并让昭情雨回复"
+  },
+  "auto_reply_text": {
+    "type": "bool",
+    "default": false,
+    "description": "收到普通文本消息时也让昭情雨回复(会拦截所有消息,慎用)"
+  },
+  "auto_reply_image": {
+    "type": "bool",
+    "default": false,
+    "description": "收到图片消息时自动视觉分析并回复"
+  },
+  "tts_reply": {
+    "type": "bool",
+    "default": false,
+    "description": "用 edge-tts 合成中文语音回复(QQ 里发语音消息,需网络)"
+  },
+  "vision_model": {
+    "type": "string",
+    "default": "llava:7b",
+    "description": "视觉识别模型(M40 Ollama 上的模型名)"
+  },
+  "coyote_limit": {
+    "type": "int",
+    "default": 50,
+    "description": "郊狼强度上限(安全保护)"
+  }
+}
